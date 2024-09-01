@@ -53,11 +53,11 @@ const mutation = new GraphQLObjectType({
         },
         deleteTodo:{
             type: TodoType,
-            args:{
-                id:{type: GraphQLNonNull(GraphQLID)},
+            args: {
+                id: {type: GraphQLNonNull(GraphQLID)},
             },
             resolve(parent,args) {
-                return Todo.findByIdAndRemove(args.id)
+                return Todo.findByIdAndDelete(args.id)
             }
         },
         updateTodo:{
