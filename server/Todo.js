@@ -8,7 +8,7 @@ const TodoSchema = new mongoose.Schema({
             type:Boolean
         }
     },
-    {timestamp:true}
+    {timestamps:true}
 )
 
 const Todo = mongoose.model('Todo', TodoSchema)
