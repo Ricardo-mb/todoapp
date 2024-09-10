@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client'
 import TodoList from './components/TodoList.js';
+import {Container} from 'react-bootstrap'
 
 const client = new ApolloClient({
   uri:'http://localhost:8000/graphql', 
@@ -9,12 +10,12 @@ const client = new ApolloClient({
 
 function App() {
   return (
-   <ApolloProvider client={client}>
-     <div className="App">
-     <h1>Todo App</h1>
-     <TodoList/>
-    </div>
-   </ApolloProvider>
+    <ApolloProvider client={client}>
+      <Container >
+        <h1 className="text-center mt-3">Todo App</h1>
+        <TodoList/>
+      </Container>
+    </ApolloProvider>
   );
 }
 

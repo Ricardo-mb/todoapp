@@ -62,19 +62,25 @@ const mutation = new GraphQLObjectType({
         },
         updateTodo:{
             type: TodoType,
-            args:{
-                id:{type:GraphQLNonNull(GraphQLID)},
-                title:{type:GraphQLString}
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+                title: { type: GraphQLString }
             },
-            resolve(parent, args){
-                return Todo.findByIdAndUpdate(
-                    args.id,
-                    {
-                        $set:{
-                            title:args.title
-                        }
+            async resolve(parent, args) {
+                try {
+                    const updatedTodo = await Todo.findByIdAndUpdate(
+                        args.id,
+                        { $set: { title: args.title } },
+                        { new: true }
+                    );
+                    if (!updatedTodo) {
+                        throw new Error('Todo not found');
                     }
-                )
+                    return updatedTodo;
+                } catch (err) {
+                    console.error('Failed to update todo:', err);
+                    throw new Error('Failed to update todo: ' + err.message);
+                }
             }
         },
         toggleTodo:{
