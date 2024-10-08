@@ -23,8 +23,16 @@ app.use(
 );
 
 // Root route to handle '/'
-app.get("/", (req, res) => {
-  res.send("Welcome to the Todo GraphQL API!");
+// app.get("/", (req, res) => {
+//   res.send("Welcome to the Todo GraphQL API!");
+// });
+// Serve the React build folder (static files)
+const __dirname = path.resolve(); // Make sure you're in the correct directory
+app.use(express.static(path.join(__dirname, "client/build"))); // Assuming React app is in 'client'
+
+// Serve the front-end for any other route not caught by the API
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(port, () => {
