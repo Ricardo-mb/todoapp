@@ -26,14 +26,18 @@ app.use(
 // app.get("/", (req, res) => {
 //   res.send("Welcome to the Todo GraphQL API!");
 // });
-// Serve the React build folder (static files)
-const __dirname = path.resolve(); // Make sure you're in the correct directory
-app.use(express.static(path.join(__dirname, "client/build"))); // Assuming React app is in 'client'
-
-// Serve the front-end for any other route not caught by the API
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
+// Serve static files in production
+const __dirname = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running....");
+  });
+}
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}!`);
