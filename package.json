@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": "18.18.2",
+    "npm": "10.9.0",
+    "yarn": "1.22.19"
+  },
   "scripts": {
     "start": "node server/index.js",
     "dev": "nodemon server/index.js"
