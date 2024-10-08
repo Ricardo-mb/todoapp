@@ -4,6 +4,7 @@ import { graphqlHTTP } from "express-graphql";
 import schema from "./schema.js";
 import connectDB from "./db.js";
 import cors from "cors";
+import path from "path";
 
 dotenv.config();
 
@@ -22,10 +23,6 @@ app.use(
   })
 );
 
-// Root route to handle '/'
-// app.get("/", (req, res) => {
-//   res.send("Welcome to the Todo GraphQL API!");
-// });
 // Serve static files in production
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === "production") {
