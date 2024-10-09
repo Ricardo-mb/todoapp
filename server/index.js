@@ -6,25 +6,27 @@ import connectDB from "./db.js";
 import cors from "cors";
 import path from "path";
 
+const __dirname = path.resolve();
+
 dotenv.config();
 
 const app = express();
 
 connectDB();
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({
     schema,
-    graphiql: process.env.NODE_ENV === "development",
+    graphiql: process.env.NODE_ENV === "production" ? false : true,
   })
 );
 
 // Serve static files in production
-const __dirname = path.resolve();
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
   app.get("*", (req, res) =>
